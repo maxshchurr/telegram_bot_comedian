@@ -10,6 +10,7 @@ Will be soon
 bot = Bot(token=BOT_TOKEN)
 disp = Dispatcher(bot=bot)
 
+
 @disp.message_handler(commands=['start'])
 async def start_handler(message: types.Message):
     user_id = message.from_user.id
