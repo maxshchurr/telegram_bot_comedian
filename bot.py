@@ -51,6 +51,16 @@ async def programmers_jokes_handler(message: types.Message):
     await message.answer(await sqlite_db.sql_jokes_about_shtirlitz())
 
 
+@disp.message_handler(commands=['jokes_about_vovochka'])
+async def programmers_jokes_handler(message: types.Message):
+    await message.answer(await sqlite_db.sql_jokes_about_vovochka())
+
+
+@disp.message_handler(commands=['odesa_humor'])
+async def programmers_jokes_handler(message: types.Message):
+    await message.answer(await sqlite_db.sql_odesa_humor())
+
+
 if __name__ == '__main__':
     executor.start_polling(disp)
 

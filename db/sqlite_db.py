@@ -4,7 +4,7 @@ import random
 
 def start_sqlite3():
     # global db, cursor
-    db = sq.connect('test.db')
+    db = sq.connect("../test.db")
     cursor = db.cursor()
 
     if db:
@@ -19,7 +19,18 @@ def start_sqlite3():
         joke_text VARCHAR(600));
     """)
 
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS jokes_vovochka(joke_text VARCHAR(600));
+        """)
+
+    db.execute("""
+           CREATE TABLE IF NOT EXISTS jokes_odesa_humor(joke_text VARCHAR(600));
+           """)
+
     db.commit()
+
+
+start_sqlite3()
 
 
 async def sql_jokes_about_shtirlitz():
@@ -30,10 +41,6 @@ async def sql_jokes_about_shtirlitz():
 
     cursor.execute(query)
     data = cursor.fetchall()
-
-    count_rows = 'select max(RowId) from jokes_shtirlitz'
-    cursor.execute(count_rows)
-    counter = cursor.fetchall()
 
     jokes = []
     for i in data:
@@ -46,4 +53,50 @@ async def sql_jokes_about_shtirlitz():
     joke_id = random.randint(0, len(result_arr))
     print(result_arr[joke_id], joke_id)
     return result_arr[joke_id]
+
+
+async def sql_jokes_about_vovochka():
+    connect = sq.connect('test.db')
+    cursor = connect.cursor()
+
+    query = 'SELECT * FROM jokes_vovochka'
+
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    jokes = []
+    for i in data:
+        jokes.append(i)
+
+    result_arr = []
+    for result in jokes:
+        result_arr.append(str(result[0]))
+
+    joke_id = random.randint(0, len(result_arr))
+    print(result_arr[joke_id], joke_id)
+    return result_arr[joke_id]
+
+
+async def sql_odesa_humor():
+    connect = sq.connect('test.db')
+    cursor = connect.cursor()
+
+    query = 'SELECT * FROM jokes_odesa_humor'
+
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    jokes = []
+    for i in data:
+        jokes.append(i)
+
+    result_arr = []
+    for result in jokes:
+        result_arr.append(str(result[0]))
+
+    joke_id = random.randint(0, len(result_arr))
+    print(result_arr[joke_id], joke_id)
+    return result_arr[joke_id]
+
+
 
