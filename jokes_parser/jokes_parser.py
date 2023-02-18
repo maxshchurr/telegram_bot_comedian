@@ -121,19 +121,7 @@ jokes_odesa_humor.get_odesa_humor()
 
 jokes_programmers = JokesAboutProgrammers()
 jokes_programmers.jokes_about_programmers()
-"""
 
 jokes_about_clowns = JokesAboutClowns()
 jokes_about_clowns.jokes_about_clowns()
-
-# for page in range(1, 2 + 1):
-#
-#     url = f'https://anekdoty.ru/pro-klounov/page/{page}/'
-#     page = requests.get(url)
-#     data = page.text
-#     soup = BeautifulSoup(data, 'html.parser')
-#     joke_body = soup.find_all('div', class_='holder-body')
-#
-#     for jokes in joke_body:
-#         joke = jokes.text
-#         print(joke)
+"""
