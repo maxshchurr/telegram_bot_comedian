@@ -27,6 +27,14 @@ def start_sqlite3():
            CREATE TABLE IF NOT EXISTS jokes_odesa_humor(joke_text VARCHAR(600));
            """)
 
+    db.execute("""
+               CREATE TABLE IF NOT EXISTS jokes_programmers(joke_text VARCHAR(600));
+               """)
+
+    db.execute("""
+                   CREATE TABLE IF NOT EXISTS jokes_about_clowns(joke_text VARCHAR(600));
+                   """)
+
     db.commit()
 
 
@@ -99,4 +107,45 @@ async def sql_odesa_humor():
     return result_arr[joke_id]
 
 
+async def sql_programmers():
+    connect = sq.connect('test.db')
+    cursor = connect.cursor()
 
+    query = 'SELECT * FROM jokes_programmers'
+
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    jokes = []
+    for i in data:
+        jokes.append(i)
+
+    result_arr = []
+    for result in jokes:
+        result_arr.append(str(result[0]))
+
+    joke_id = random.randint(0, len(result_arr))
+    print(result_arr[joke_id], joke_id)
+    return result_arr[joke_id]
+
+
+async def sql_jokes_about_clowns():
+    connect = sq.connect('test.db')
+    cursor = connect.cursor()
+
+    query = 'SELECT * FROM jokes_about_clowns'
+
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    jokes = []
+    for i in data:
+        jokes.append(i)
+
+    result_arr = []
+    for result in jokes:
+        result_arr.append(str(result[0]))
+
+    joke_id = random.randint(0, len(result_arr))
+    print(result_arr[joke_id], joke_id)
+    return result_arr[joke_id]

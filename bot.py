@@ -1,5 +1,3 @@
-import sqlite3
-
 from aiogram import Bot, Dispatcher, executor, types
 from settings import BOT_TOKEN
 from keyboard import keyboard
@@ -43,7 +41,7 @@ async def help_handler(message: types.Message):
 async def programmers_jokes_handler(message: types.Message):
     igor_link_programmer_sticker = 'CAACAgIAAxkBAAEHqrlj5ghUIFoSm5nkAehN41frtW5EcQACJgAD1b4hJ0mtVouBBU_ULgQ'
     await bot.send_sticker(message.from_user.id, sticker=igor_link_programmer_sticker)
-    await message.answer("You've selected jokes about programmers, great choice!")
+    await message.answer(await sqlite_db.sql_programmers())
 
 
 @disp.message_handler(commands=['jokes_about_shtirlitz'])
@@ -52,16 +50,21 @@ async def programmers_jokes_handler(message: types.Message):
 
 
 @disp.message_handler(commands=['jokes_about_vovochka'])
-async def programmers_jokes_handler(message: types.Message):
+async def vovochka_jokes_handler(message: types.Message):
     await message.answer(await sqlite_db.sql_jokes_about_vovochka())
 
 
 @disp.message_handler(commands=['odesa_humor'])
-async def programmers_jokes_handler(message: types.Message):
+async def odesa_humor_jokes_handler(message: types.Message):
     await message.answer(await sqlite_db.sql_odesa_humor())
+
+
+@disp.message_handler(commands=['jokes_about_clowns'])
+async def clowns_jokes_handler(message: types.Message):
+    clown_sticker = 'CAACAgIAAxkBAAEHqrdj5gdnO5OaQiVljgoZ0jp1Co5PhwACSwADq1fEC_YvjG0FI5VTLgQ'
+    await bot.send_sticker(message.from_user.id, sticker=clown_sticker)
+    await message.answer(await sqlite_db.sql_jokes_about_clowns())
 
 
 if __name__ == '__main__':
     executor.start_polling(disp)
-
-
