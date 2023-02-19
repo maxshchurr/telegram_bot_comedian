@@ -108,6 +108,26 @@ class JokesAboutClowns:
                 db.close()
 
 
+class JokesAboutGeorgians:
+    def jokes_about_georgians(self):
+        for page in range(1, 13 + 1):
+
+            url = f'https://anekdoty.ru/pro-gruzinov/page/{page}/'
+            page = requests.get(url)
+            data = page.text
+            soup = BeautifulSoup(data, 'html.parser')
+            joke_body = soup.find_all('div', class_='holder-body')
+
+            for jokes in joke_body:
+                joke = jokes.text
+                print(joke)
+                db = sq.connect("../test.db")
+                cursor = db.cursor()
+
+                cursor.execute("""INSERT INTO jokes_about_georgians VALUES (?);""", (joke,))
+                db.commit()
+                db.close()
+
 # UNCOMMENT TO PARSE INTO DB
 """
 jokes_shtirlitz = JokesAboutShtirlitz()
@@ -124,4 +144,7 @@ jokes_programmers.jokes_about_programmers()
 
 jokes_about_clowns = JokesAboutClowns()
 jokes_about_clowns.jokes_about_clowns()
+
+jokes_about_georgians = JokesAboutGeorgians()
+jokes_about_georgians.jokes_about_georgians()
 """

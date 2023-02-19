@@ -66,5 +66,10 @@ async def clowns_jokes_handler(message: types.Message):
     await message.answer(await sqlite_db.sql_jokes_about_clowns())
 
 
+@disp.message_handler(commands=['jokes_about_georgians'])
+async def georgians_jokes_handler(message: types.Message):
+    await message.answer(await sqlite_db.sql_jokes_about_georgians())
+
+
 if __name__ == '__main__':
     executor.start_polling(disp)
